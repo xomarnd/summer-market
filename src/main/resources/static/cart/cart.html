@@ -39,12 +39,14 @@
         <form novalidate ng-submit="createOrder()">
             <div class="form-group col-md-6">
                 <label for="destinationField">Адрес доставки</label>
-                <input class="form-control" type="text" ng-model="order_info.address" id="destinationField">
+                <input class="form-control" type="text" ng-model="order_info.address" id="destinationField" required>
             </div>
             <p></p>
             <div class="form-group col-md-6">
                 <label for="phoneField">Телефон получателя</label>
-                <input class="form-control" type="text" ng-model="order_info.phone" id="phoneField">
+                <input class="form-control" type="text" ng-model="order_info.phone" id="phoneField"
+                       required
+                       placeholder="+7-900-123-1234">
             </div>
             <p></p>
             <div>

@@ -5,6 +5,7 @@
         <thead>
         <tr>
             <td>ID</td>
+            <td>Детали</td>
             <td>Цена</td>
             <td>Адрес доставки</td>
             <td>Телефон</td>
@@ -13,6 +14,13 @@
         <tbody>
         <tr ng-repeat="o in orders">
             <td>{{o.id}}</td>
+            <td>
+                <div ng-repeat="oi in o.items">
+                    <span>{{oi.productTitle + ' x' + oi.quantity}}</span>
+                    <p></p>
+                </div>
+
+            </td>
             <td>{{o.price}}</td>
             <td>{{o.address}}</td>
             <td>{{o.phone}}</td>
