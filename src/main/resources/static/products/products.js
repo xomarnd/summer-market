@@ -10,12 +10,19 @@ angular.module('app').controller('productsController', function ($scope, $http, 
         });
     }
 
+    $scope.clearFilter = function () {
+        $scope.product_filter = null;
+    }
+
     $scope.loadPage = function (pageIndex = 1) {
         $http({
             url: contextPath + '/api/v1/products',
             method: 'GET',
             params: {
-                'p': pageIndex
+                'p': pageIndex,
+                'min_price': $scope.product_filter ? $scope.product_filter.min : null,
+                'max_price': $scope.product_filter ? $scope.product_filter.max : null,
+                'title': $scope.product_filter ? $scope.product_filter.title : null
             }
         }).then(function (response) {
             $scope.productsPage = response.data;

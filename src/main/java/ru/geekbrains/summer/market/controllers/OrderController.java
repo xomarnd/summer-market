@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.summer.market.dto.OrderDto;
 import ru.geekbrains.summer.market.exceptions.InvalidInputDataException;
 import ru.geekbrains.summer.market.exceptions.ResourceNotFoundException;
+import ru.geekbrains.summer.market.model.Order;
 import ru.geekbrains.summer.market.model.User;
 import ru.geekbrains.summer.market.services.OrderService;
 import ru.geekbrains.summer.market.services.UserService;
