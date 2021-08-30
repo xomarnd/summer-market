@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.geekbrains.summer.market.dto.OrderItemDto;
 import ru.geekbrains.summer.market.dto.ProductDto;
 import ru.geekbrains.summer.market.model.Product;
+import ru.geekbrains.summer.market.model.ProductEntity;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
@@ -42,10 +43,14 @@ public class Cart {
         return false;
     }
 
-    public void add(Product product) {
-        items.add(new OrderItemDto(product));
+    public void add(ProductEntity productEntity) {
+        items.add(new OrderItemDto(productEntity));
         recalculate();
     }
+//    public void add(Product product) {
+//        items.add(new OrderItemDto(product));
+//        recalculate();
+//    }
 
     private void recalculate() {
         price = BigDecimal.ZERO;
