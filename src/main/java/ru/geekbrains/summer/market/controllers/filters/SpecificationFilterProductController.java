@@ -1,7 +1,7 @@
 package ru.geekbrains.summer.market.controllers.filters;
 
 import org.springframework.data.jpa.domain.Specification;
-import ru.geekbrains.summer.market.model.ProductEntity;
+import ru.geekbrains.summer.market.model.Product;
 import ru.geekbrains.summer.market.repositories.specifications.ProductSpecifications;
 
 import java.math.BigDecimal;
@@ -14,10 +14,10 @@ public class SpecificationFilterProductController {
 		this.specificationList = specificationList;
 	}
 
-	public Specification<ProductEntity> getSpecification() {
-		Specification<ProductEntity> spec = Specification.where(null);
+	public Specification<Product> getSpecification() {
+		Specification<Product> spec = Specification.where(null);
 		if (specificationList.get("min_price") != null) {
-			spec = spec.and(ProductSpecifications.priceGreaterThanOrEqualTo((BigDecimal) specificationList.get("min_price")));
+			spec = spec.and(ProductSpecifications.priceGreaterOrEqualThan((BigDecimal) specificationList.get("min_price")));
 		}
 		if (specificationList.get("max_price") != null) {
 			spec = spec.and(ProductSpecifications.priceLessThanOrEqualTo((BigDecimal) specificationList.get("max_price")));

@@ -34,16 +34,10 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setQuantity(o.getQuantity());
-            ProductEntity productEntity = productService.findById(o.getProductId()).orElseThrow(() -> new ResourceNotFoundException("ProductEntity not found"));
+            Product productEntity = productService.findById(o.getProductId()).orElseThrow(() -> new ResourceNotFoundException("ProductEntity not found"));
             orderItem.setPrice(productEntity.getPrice().multiply(BigDecimal.valueOf(o.getQuantity())));
             orderItem.setPricePerProduct(productEntity.getPrice());
-            orderItem.setProductEntity(productEntity);
-
-//            Product product = productService.findById(o.getProductId()).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-//            orderItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(o.getQuantity())));
-//            orderItem.setPricePerProduct(product.getPrice());
-//            orderItem.setProduct(product);
-//            order.getItems().add(orderItem);
+            orderItem.setProduct(productEntity);
         }
         orderRepository.save(order);
         cart.clear();
