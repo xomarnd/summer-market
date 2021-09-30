@@ -21,8 +21,7 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "order")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
 
     @Column(name = "price")
