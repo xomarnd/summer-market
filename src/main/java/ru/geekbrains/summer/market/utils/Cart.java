@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.summer.market.dto.OrderItemDto;
-import ru.geekbrains.summer.market.dto.ProductDto;
 import ru.geekbrains.summer.market.model.Product;
 
 import javax.annotation.PostConstruct;

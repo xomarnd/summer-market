@@ -17,7 +17,7 @@ public class SpecificationFilterProductController {
 	public Specification<Product> getSpecification() {
 		Specification<Product> spec = Specification.where(null);
 		if (specificationList.get("min_price") != null) {
-			spec = spec.and(ProductSpecifications.priceGreaterThanOrEqualTo((BigDecimal) specificationList.get("min_price")));
+			spec = spec.and(ProductSpecifications.priceGreaterOrEqualThan((BigDecimal) specificationList.get("min_price")));
 		}
 		if (specificationList.get("max_price") != null) {
 			spec = spec.and(ProductSpecifications.priceLessThanOrEqualTo((BigDecimal) specificationList.get("max_price")));

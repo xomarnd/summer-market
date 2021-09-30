@@ -6,10 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.geekbrains.summer.market.dto.OrderDto;
 import ru.geekbrains.summer.market.dto.OrderItemDto;
 import ru.geekbrains.summer.market.exceptions.ResourceNotFoundException;
-import ru.geekbrains.summer.market.model.Order;
-import ru.geekbrains.summer.market.model.OrderItem;
-import ru.geekbrains.summer.market.model.Product;
-import ru.geekbrains.summer.market.model.User;
+import ru.geekbrains.summer.market.model.*;
 import ru.geekbrains.summer.market.repositories.OrderRepository;
 import ru.geekbrains.summer.market.utils.Cart;
 
@@ -37,11 +34,10 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setQuantity(o.getQuantity());
-            Product product = productService.findById(o.getProductId()).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-            orderItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(o.getQuantity())));
-            orderItem.setPricePerProduct(product.getPrice());
-            orderItem.setProduct(product);
-            order.getItems().add(orderItem);
+            Product productEntity = productService.findById(o.getProductId()).orElseThrow(() -> new ResourceNotFoundException("ProductEntity not found"));
+            orderItem.setPrice(productEntity.getPrice().multiply(BigDecimal.valueOf(o.getQuantity())));
+            orderItem.setPricePerProduct(productEntity.getPrice());
+            orderItem.setProduct(productEntity);
         }
         orderRepository.save(order);
         cart.clear();

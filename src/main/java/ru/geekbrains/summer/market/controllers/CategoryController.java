@@ -14,7 +14,12 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public Category findById(@PathVariable Long id) {
-        Category c = categoryService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found, id: " + id));
+        Category c = categoryService.findById(id).orElseThrow(() -> new ResourceNotFoundException("CategoryEntity not found, id: " + id));
         return c;
     }
 }
+//    public Category findById(@PathVariable Long id) {
+//        Category c = categoryService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found, id: " + id));
+//        return c;
+//    }
+

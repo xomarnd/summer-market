@@ -6,7 +6,7 @@ import ru.geekbrains.summer.market.model.Product;
 import java.math.BigDecimal;
 
 public class ProductSpecifications {
-    public static Specification<Product> priceGreaterThanOrEqualTo(BigDecimal minPrice) {
+    public static Specification<Product> priceGreaterOrEqualThan(BigDecimal minPrice) {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("price"), minPrice);
     }
 

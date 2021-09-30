@@ -14,6 +14,7 @@ public class ProductDto {
     private String categoryTitle;
     private BigDecimal price;
 
+
     public ProductDto(Product product) {
         this.id = product.getId();
         this.title = product.getTitle();
