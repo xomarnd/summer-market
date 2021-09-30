@@ -3,15 +3,11 @@ angular.module('app').controller('productsController', function ($scope, $http, 
 
     $scope.addToCart = function (productId) {
         $http({
-            url: contextPath + '/api/v1/cart/add/' + productId,
+            url: contextPath + '/api/v1/cart/' + $localStorage.guestCartUuid + '/add/' + productId,
             method: 'GET'
         }).then(function (response) {
             $scope.loadCart();
         });
-    }
-
-    $scope.clearFilter = function () {
-        $scope.product_filter = null;
     }
 
     $scope.loadPage = function (pageIndex = 1) {
@@ -19,10 +15,10 @@ angular.module('app').controller('productsController', function ($scope, $http, 
             url: contextPath + '/api/v1/products',
             method: 'GET',
             params: {
-                'p': pageIndex,
-                'min_price': $scope.product_filter ? $scope.product_filter.min : null,
-                'max_price': $scope.product_filter ? $scope.product_filter.max : null,
-                'title': $scope.product_filter ? $scope.product_filter.title : null
+                p: pageIndex,
+                title: $scope.filter ? $scope.filter.title : null,
+                min_price: $scope.filter ? $scope.filter.min_price : null,
+                max_price: $scope.filter ? $scope.filter.max_price : nulll
             }
         }).then(function (response) {
             $scope.productsPage = response.data;
