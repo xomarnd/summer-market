@@ -3,6 +3,7 @@ package ru.geekbrains.summer.market.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.summer.market.controllers.filters.SpecificationFilterProductController;
 import ru.geekbrains.summer.market.dto.ProductDto;
@@ -12,6 +13,7 @@ import ru.geekbrains.summer.market.exceptions.ResourceNotFoundException;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,25 +23,16 @@ public class ProductController {
 
     @GetMapping(value = "/{id}")
     public ProductDto findById(@PathVariable Long id) {
-        Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("ProductEntity not found, id: " + id));
+        Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found, id: " + id));
         return new ProductDto(p);
     }
 
     @GetMapping
     public Page<ProductDto> findAll(
             @RequestParam(name = "p", defaultValue = "1") int pageIndex,
-            @RequestParam(name = "min_price", required = false) BigDecimal minPrice,
-            @RequestParam(name = "max_price", required = false) BigDecimal maxPrice,
-            @RequestParam(name = "title", required = false) String title
+            @RequestParam MultiValueMap<String, String> params
     ) {
-        HashMap<String, Object> specificationList = new HashMap<>();
-        specificationList.put("min_price", minPrice);
-        specificationList.put("max_price", maxPrice);
-        specificationList.put("title", title);
-        SpecificationFilterProductController specFilter = new SpecificationFilterProductController(specificationList);
-        Specification<Product> spec = specFilter.getSpecification();
-
-        return productService.findPage(pageIndex - 1, 5, spec).map(ProductDto::new);
+        return productService.findPage(pageIndex - 1, 5, params).map(ProductDto::new);
     }
 
     @PostMapping
@@ -53,5 +46,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         productService.deleteById(id);
+    }
+
+    @PostMapping("/pack")
+    public void demoPack(@RequestParam Map<String, String> params) {
+        System.out.println(1);
     }
 }

@@ -1,12 +1,10 @@
-package ru.geekbrains.summer.market.utils;
+package ru.geekbrains.summer.market.beans;
+
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 import ru.geekbrains.summer.market.dto.OrderItemDto;
 import ru.geekbrains.summer.market.model.Product;
 
-import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,6 +12,7 @@ import java.util.List;
 
 @Data
 public class Cart {
+
     private List<OrderItemDto> items;
     private BigDecimal price;
 
@@ -55,7 +54,7 @@ public class Cart {
         recalculate();
     }
 
-    public boolean changeQuantity(Long productId, int amount) {
+    public void changeQuantity(Long productId, int amount) {
         Iterator<OrderItemDto> iter = items.iterator();
         while (iter.hasNext()) {
             OrderItemDto o = iter.next();
@@ -65,10 +64,9 @@ public class Cart {
                     iter.remove();
                 }
                 recalculate();
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     public void merge(Cart another) {
